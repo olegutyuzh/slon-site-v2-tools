@@ -1,0 +1,17 @@
+{
+  "name": "slon-blog",
+  "version": "1.0.0",
+  "description": "Двомовний блог-стрічка історій про Ігоря «Слона» Утюжа",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "markdown-it-attrs": "^4.3.1"
+  }
+}

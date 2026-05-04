@@ -1,0 +1,104 @@
+---
+layout: layouts/base.njk
+isPost: true
+---
+
+{# Динамічно сетимо метатеги OG/title — для них показуємо UA-версію за замовчуванням #}
+{% set pageTitle = title.uk %}
+{% set ogTitle = title.uk %}
+{% set description = lede.uk if lede else '' %}
+
+{# ===== HERO посту ===== #}
+<section class="bio-hero">
+  <div class="bio-hero-inner">
+
+    <div class="bio-hero-kicker">
+      <span data-i18n="stories_filter_{{ category }}">{{ ('stories_filter_' + category) | t('uk') }}</span>
+      {% if author %}
+        · <span data-lang-content="uk">{{ author.uk }}</span><span data-lang-content="en">{{ author.en }}</span>
+      {% endif %}
+    </div>
+
+    <h1 class="bio-hero-title">
+      <span data-lang-content="uk">{{ title.uk }}</span>
+      <span data-lang-content="en">{{ title.en }}</span>
+    </h1>
+
+    <div class="bio-hero-years">
+      <span data-lang-content="uk">{{ date | dateLocalized('uk') }}</span>
+      <span data-lang-content="en">{{ date | dateLocalized('en') }}</span>
+    </div>
+
+    {% if lede %}
+    <p class="bio-hero-lede">
+      <span data-lang-content="uk">{{ lede.uk }}</span>
+      <span data-lang-content="en">{{ lede.en }}</span>
+    </p>
+    {% endif %}
+
+    <div class="bio-hero-divider"></div>
+  </div>
+</section>
+
+{# ===== ОСНОВНИЙ ТЕКСТ ===== #}
+<section class="section bio-chapter">
+  <div class="section-inner bio-chapter-inner">
+    <div class="bio-content">
+
+      {% if photo %}
+      <figure class="bio-figure {% if photo_portrait %}bio-figure--portrait{% endif %}">
+        <div class="bio-figure-img">
+          <img src="{{ photo }}" alt="{{ title.uk }}" />
+        </div>
+        {% if photo_caption %}
+        <figcaption class="bio-figure-caption">
+          <span data-lang-content="uk">{{ photo_caption.uk }}</span>
+          <span data-lang-content="en">{{ photo_caption.en }}</span>
+        </figcaption>
+        {% endif %}
+      </figure>
+      {% endif %}
+
+      {# Тіло поста: рендеримо обидві мови як два <div>, lang.js покаже потрібну #}
+      <div data-lang-content="uk">
+        {{ body_uk | markdown | safe }}
+      </div>
+      <div data-lang-content="en">
+        {{ body_en | markdown | safe }}
+      </div>
+
+      {# ===== Навігація: попередня / наступна ===== #}
+      <div class="bio-divider"></div>
+
+      <nav class="post-nav">
+        {% set prevPost = collections.posts | getPreviousCollectionItem(page) %}
+        {% set nextPost = collections.posts | getNextCollectionItem(page) %}
+
+        {% if prevPost %}
+        <a href="{{ prevPost.url }}" class="post-nav-link post-nav-prev">
+          <span class="post-nav-label">← <span data-i18n="story_nav_prev">Попередня</span></span>
+          <span class="post-nav-title">
+            <span data-lang-content="uk">{{ prevPost.data.title.uk }}</span>
+            <span data-lang-content="en">{{ prevPost.data.title.en }}</span>
+          </span>
+        </a>
+        {% endif %}
+
+        {% if nextPost %}
+        <a href="{{ nextPost.url }}" class="post-nav-link post-nav-next">
+          <span class="post-nav-label"><span data-i18n="story_nav_next">Наступна</span> →</span>
+          <span class="post-nav-title">
+            <span data-lang-content="uk">{{ nextPost.data.title.uk }}</span>
+            <span data-lang-content="en">{{ nextPost.data.title.en }}</span>
+          </span>
+        </a>
+        {% endif %}
+      </nav>
+
+      <div class="post-back">
+        <a href="/stories.html" class="btn" data-i18n="story_back_to_list">← Усі історії</a>
+      </div>
+
+    </div>
+  </div>
+</section>

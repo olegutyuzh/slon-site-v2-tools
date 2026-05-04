@@ -1,0 +1,119 @@
+---
+layout: layouts/base.njk
+permalink: /stories.html
+pageTitle: Історії
+ogTitle: Історії — Слон
+description: Спогади та події про Ігоря «Слона» Утюжа — від родини, друзів і побратимів.
+canonical: https://slon.life/stories.html
+isStoriesIndex: true
+---
+
+<section class="bio-hero">
+  <div class="bio-hero-inner">
+    <div class="bio-hero-kicker" data-i18n="stories_kicker">Блог пам'яті</div>
+    <h1 class="bio-hero-title" data-i18n="stories_title">Історії</h1>
+    <p class="bio-hero-lede" data-i18n="stories_subtitle">
+      Спогади, події, маленькі та великі історії про Ігоря — від родини, друзів і побратимів.
+      Щоразу, коли в нас є що додати, з'являється новий запис.
+    </p>
+    <div class="bio-hero-divider"></div>
+  </div>
+</section>
+
+<section class="section bio-chapter">
+  <div class="section-inner bio-chapter-inner">
+
+    {# ===== ФІЛЬТРИ РУБРИК ===== #}
+    <div class="stories-filters">
+      <button type="button" class="stories-filter is-active" data-filter="all" data-i18n="stories_filter_all">Усі</button>
+      <button type="button" class="stories-filter" data-filter="childhood" data-i18n="stories_filter_childhood">Дитинство</button>
+      <button type="button" class="stories-filter" data-filter="maidan" data-i18n="stories_filter_maidan">Майдан</button>
+      <button type="button" class="stories-filter" data-filter="service" data-i18n="stories_filter_service">Служба</button>
+      <button type="button" class="stories-filter" data-filter="tribute" data-i18n="stories_filter_tribute">Вшанування</button>
+    </div>
+
+    {# ===== СТРІЧКА ПОСТІВ ===== #}
+    <div class="stories-list">
+      {% for post in collections.posts %}
+      <article class="story-card" data-category="{{ post.data.category }}">
+
+        {% if post.data.photo %}
+        <a href="{{ post.url }}" class="story-card-photo">
+          <img src="{{ post.data.photo }}" alt="{{ post.data.title.uk }}" loading="lazy" />
+        </a>
+        {% endif %}
+
+        <div class="story-card-body">
+          <div class="story-card-meta">
+            <span class="story-card-category" data-i18n="stories_filter_{{ post.data.category }}">{{ ('stories_filter_' + post.data.category) | t('uk') }}</span>
+            <span class="story-card-date">
+              <span data-lang-content="uk">{{ post.date | dateLocalized('uk') }}</span>
+              <span data-lang-content="en">{{ post.date | dateLocalized('en') }}</span>
+            </span>
+          </div>
+
+          <h2 class="story-card-title">
+            <a href="{{ post.url }}">
+              <span data-lang-content="uk">{{ post.data.title.uk }}</span>
+              <span data-lang-content="en">{{ post.data.title.en }}</span>
+            </a>
+          </h2>
+
+          {% if post.data.lede %}
+          <p class="story-card-lede">
+            <span data-lang-content="uk">{{ post.data.lede.uk }}</span>
+            <span data-lang-content="en">{{ post.data.lede.en }}</span>
+          </p>
+          {% endif %}
+
+          {% if post.data.author %}
+          <div class="story-card-author">
+            — <span data-lang-content="uk">{{ post.data.author.uk }}</span><span data-lang-content="en">{{ post.data.author.en }}</span>
+          </div>
+          {% endif %}
+
+          <a href="{{ post.url }}" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+        </div>
+      </article>
+      {% endfor %}
+
+      {% if collections.posts | length == 0 %}
+      <p class="bio-content" style="text-align:center; opacity:0.7;" data-i18n="stories_empty">
+        Поки що немає опублікованих історій. Скоро з'являться перші записи.
+      </p>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+{# ===== ФІЛЬТРАЦІЯ JS (працює з даними, не з мовою) ===== #}
+<script>
+(function() {
+  const filters = document.querySelectorAll('.stories-filter');
+  const cards = document.querySelectorAll('.story-card');
+
+  function applyFilter(cat) {
+    cards.forEach(card => {
+      const match = (cat === 'all') || (card.dataset.category === cat);
+      card.style.display = match ? '' : 'none';
+    });
+    filters.forEach(f => {
+      f.classList.toggle('is-active', f.dataset.filter === cat);
+    });
+  }
+
+  filters.forEach(f => {
+    f.addEventListener('click', e => {
+      e.preventDefault();
+      applyFilter(f.dataset.filter);
+      history.replaceState(null, '', '#' + f.dataset.filter);
+    });
+  });
+
+  const initial = (location.hash || '#all').slice(1);
+  if (['all','childhood','maidan','service','tribute'].includes(initial)) {
+    applyFilter(initial);
+  }
+})();
+</script>
