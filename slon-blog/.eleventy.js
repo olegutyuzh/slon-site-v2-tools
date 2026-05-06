@@ -57,6 +57,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("biography.css");
   eleventyConfig.addPassthroughCopy("blog.css");
   eleventyConfig.addPassthroughCopy("voices.css");
+  eleventyConfig.addPassthroughCopy("share.css");
+  eleventyConfig.addPassthroughCopy("share.js");
   eleventyConfig.addPassthroughCopy("i18n.json");
   eleventyConfig.addPassthroughCopy("lang.js");
 

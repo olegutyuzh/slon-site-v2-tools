@@ -67,6 +67,9 @@ isPost: true
         {{ body_en | markdown | safe }}
       </div>
 
+      {# ===== Поширення в соцмережах ===== #}
+      {% include "partials/share.njk" %}
+      
       {# ===== Навігація: попередня / наступна ===== #}
       <div class="bio-divider"></div>
 

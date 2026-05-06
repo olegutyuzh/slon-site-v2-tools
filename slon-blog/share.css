@@ -1,0 +1,144 @@
+/* ========================================================================
+   STORY SHARE — кнопки поширення в соцмережах для сторінок історій
+   Палітра успадкована: #050608 (фон), #C8A45A (золото), #E6E6E6 (текст).
+   Усі кнопки в єдиному стилі (без брендових кольорів соцмереж),
+   щоб не вибиватися з меморіального тону сайту.
+   ======================================================================== */
+
+
+.story-share {
+  margin: 56px 0 24px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(200, 164, 90, 0.2);
+  border-bottom: 1px solid rgba(200, 164, 90, 0.2);
+  text-align: center;
+}
+
+.story-share-title {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  line-height: 1.3;
+  color: #E6E6E6;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.story-share .story-share-subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #B3B3B3;
+  margin: 0 auto 24px;
+  max-width: 460px;
+  font-style: italic;
+  text-align: center;
+}
+
+.story-share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+
+/* ===== ОДНА КНОПКА ===== */
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #C8A45A;
+  background: transparent;
+  border: 1px solid rgba(200, 164, 90, 0.35);
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.share-btn:hover {
+  color: #050608;
+  background: #C8A45A;
+  border-color: #C8A45A;
+}
+
+.share-btn:focus-visible {
+  outline: 2px solid #C8A45A;
+  outline-offset: 2px;
+}
+
+.share-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.share-btn:hover svg {
+  transform: scale(1.08);
+}
+
+
+/* ===== СТАН "СКОПІЙОВАНО" ===== */
+
+.share-btn--copy.is-copied {
+  color: #050608;
+  background: #C8A45A;
+  border-color: #C8A45A;
+  pointer-events: none;
+}
+
+
+/* ===== АДАПТИВ ===== */
+
+@media (max-width: 720px) {
+  .story-share {
+    margin: 40px 0 20px;
+    padding: 28px 0;
+  }
+
+  .story-share-title {
+    font-size: 19px;
+  }
+
+  .story-share-subtitle {
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+
+  .story-share-buttons {
+    gap: 8px;
+  }
+
+  .share-btn {
+    padding: 8px 13px;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .share-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* На дуже малих екранах — ховаємо текст, лишаємо тільки іконки.
+     Native кнопка (на мобільному) виключення — у неї текст залишається. */
+  .share-btn:not(.share-btn--native):not(.is-copied) span {
+    display: none;
+  }
+
+  .share-btn:not(.share-btn--native) {
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+  }
+}

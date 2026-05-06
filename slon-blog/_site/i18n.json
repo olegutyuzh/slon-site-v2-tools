@@ -212,7 +212,18 @@
     "stories_empty": "Поки що немає опублікованих історій. Скоро з'являться перші записи.",
     "story_nav_prev": "Попередня",
     "story_nav_next": "Наступна",
-    "story_back_to_list": "← Усі історії"
+    "story_back_to_list": "← Усі історії",
+    "story_share_title": "Поділитися історією",
+    "story_share_subtitle": "Якщо вам відгукнулася ця історія — поділіться нею. Так більше людей дізнаються про Ігоря.",
+    "story_share_facebook": "Facebook",
+    "story_share_telegram": "Telegram",
+    "story_share_twitter": "X (Twitter)",
+    "story_share_whatsapp": "WhatsApp",
+    "story_share_viber": "Viber",
+    "story_share_linkedin": "LinkedIn",
+    "story_share_copy": "Скопіювати посилання",
+    "story_share_copied": "Скопійовано ✓",
+    "story_share_native": "Поділитися…"
   },
   "en": {
     "hero_kicker": "Soldier, friend, son",
@@ -427,6 +438,17 @@
     "stories_empty": "No stories published yet. The first entries will appear soon.",
     "story_nav_prev": "Previous",
     "story_nav_next": "Next",
-    "story_back_to_list": "← All stories"
+    "story_back_to_list": "← All stories",
+    "story_share_title": "Share this story",
+    "story_share_subtitle": "If this story resonated with you — share it. More people will learn about Ihor.",
+    "story_share_facebook": "Facebook",
+    "story_share_telegram": "Telegram",
+    "story_share_twitter": "X (Twitter)",
+    "story_share_whatsapp": "WhatsApp",
+    "story_share_viber": "Viber",
+    "story_share_linkedin": "LinkedIn",
+    "story_share_copy": "Copy link",
+    "story_share_copied": "Copied ✓",
+    "story_share_native": "Share…"
   }
 }

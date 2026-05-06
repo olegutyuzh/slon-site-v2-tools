@@ -3,6 +3,7 @@ slug: den-narodzhenia
 date: 2026-04-18
 category: tribute
 photo: /img/stories/anniversary.jpg
+photo_portrait: true
 
 title:
   uk: З Днем народження, синку...

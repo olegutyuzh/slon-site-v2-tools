@@ -276,7 +276,11 @@
 
 /* ===== ДВОМОВНИЙ КОНТЕНТ ===== */
 /* За замовчуванням ховаємо EN-блоки до того, як завантажиться lang.js.
-   lang.js далі сам керує show/hide через element.style.display. */
+   lang.js далі додає клас .lang-visible до елементів поточної мови,
+   що переважає це правило і показує їх. */
 [data-lang-content="en"] {
   display: none;
+}
+[data-lang-content].lang-visible {
+  display: revert;
 }
