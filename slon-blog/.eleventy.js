@@ -61,7 +61,7 @@ module.exports = function(eleventyConfig) {
   //   modifier   — "portrait" для вертикальних фото (опційний)
   eleventyConfig.addShortcode("figure", function(src, captionUk, captionEn, modifier) {
     const isPortrait = modifier === "portrait";
-    const figClass = isPortrait ? "bio-figure bio-figure--portrait" : "bio-figure";
+    const figClass = isPortrait ? "story-figure story-figure--portrait" : "story-figure";
     const safeSrc = escapeHtml(src);
     // alt беремо з UA-підпису, або з EN, або порожній — для доступності
     const safeAlt = escapeHtml(captionUk || captionEn || "");
@@ -69,14 +69,14 @@ module.exports = function(eleventyConfig) {
     let captionHtml = "";
     if (captionUk || captionEn) {
       captionHtml = `
-        <figcaption class="bio-figure-caption">
+        <figcaption class="story-figure-caption">
           <span data-lang-content="uk">${escapeHtml(captionUk || "")}</span>
           <span data-lang-content="en">${escapeHtml(captionEn || "")}</span>
         </figcaption>`;
     }
 
     return `<figure class="${figClass}">
-      <div class="bio-figure-img">
+      <div class="story-figure-img">
         <img src="${safeSrc}" alt="${safeAlt}" loading="lazy" />
       </div>${captionHtml}
     </figure>`;

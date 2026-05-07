@@ -284,3 +284,85 @@
 [data-lang-content].lang-visible {
   display: revert;
 }
+
+/* ===== FIGURE (фото з підписом) ===== */
+
+.story-figure {
+  margin: 36px 0;
+}
+
+.story-figure-img {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(230, 230, 230, 0.08);
+  background: radial-gradient(circle at top, #181926, #050608);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.story-figure-img img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  filter: saturate(0.92);
+  display: block;
+}
+
+/* Вертикальне (портретне) фото — НЕ обрізаємо, центруємо в колонці */
+.story-figure--portrait .story-figure-img {
+  max-width: 880px;       /* портретне не повинне розтягуватись на всю ширину */
+  margin: 0 auto;
+  background: #050608;    /* без градієнту, щоб не світилось довкола */
+}
+
+.story-figure--portrait .story-figure-img img {
+  max-height: none;       /* знімаємо обмеження висоти */
+  height: auto;
+  object-fit: contain;    /* показуємо фото повністю, без обрізання */
+}
+
+.story-figure-caption {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8a8a8a;
+  text-align: center;
+  font-style: italic;
+}
+
+.story-attribution {
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* центрування */
+  gap: 12px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);  /* світлий приглушений */
+}
+
+.story-attribution__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.12);  /* світлий бордер */
+  flex-shrink: 0;
+}
+
+.story-attribution-author {
+  /* color: rgba(255, 255, 255, 0.5); */
+  color: #C8A45A;
+  /* font-style: italic; */
+  font-size: 0.9rem;
+  margin-top: 12px;
+  text-align: right;
+}
+
+.story-hero-lede {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #B3B3B3;
+  max-width: 640px;
+  margin: 0 auto;
+  font-style: italic;
+}

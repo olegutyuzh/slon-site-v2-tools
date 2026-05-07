@@ -9,11 +9,11 @@ title:
   en: The concert Igor finally made it to
 
 author:
-  uk: Евгенія, наречена
+  uk: Євгенія, наречена
   en: Yevheniia, fiancée
 
 # Окреме оптимізоване зображення для соцмереж (1200×630, з обличчям/текстом по центру)
-og_image: /img/stories/og/conсert-zhadana-og.png  
+# og_image: /img/stories/og/conсert-zhadana-og.png  
 
 lede:
   uk: Ігор таки потрапив на концерт «Жадан та Собаки» — його фото стояло на сцені поруч із улюбленим гуртом. Пісню «Троєщина» вони виконали для нього та всіх полеглих захисників.
@@ -34,13 +34,13 @@ body_uk: |
 
   Ми привезли його велику фотографію й викупили окреме місце в першому ряду. Так, ніби Ігор сидів поруч із нами. Так, ніби він просто вийшов на хвилину й зараз повернеться.
 
-  {% figure "/img/stories/slon_n_zhenya_horizontal.jpg", "Наречена Евгенія у залі поруч із портретом Ігоря", "Yevheniia, fiancée, in the hall beside Ihor’s portrait" %}
+  {% figure "/img/stories/slon_n_zhenya_horizontal.jpg", "Наречена Євгенія у залі поруч із портретом Ігоря", "Yevheniia, fiancée, in the hall beside Ihor’s portrait", "portrait" %}
 
   Коли концерт почався, люди підійшли ближче до сцени, і портрет Ігоря опинився позаду натовпу. І тоді сталося те, що назавжди залишиться в нашій пам’яті. Один із музикантів підійшов, взяв фото Ігоря в руки — і поставив прямо на сцені. У світлі прожекторів. Поруч із гуртом, який він так любив. У тому місці, де він мав би стояти сам.
 
   А перед виконанням «Троєщина» Сергій Жадан сказав кілька теплих слів про Ігоря. Про його шлях. Про його силу. І про всіх наших захисників, які віддали життя за Україну. Цю пісню вони виконали для нього.
 
-  {% figure "/img/stories/zhadan.png", "Сергій Жадан зі мікрофоном на сцені, на екрані позаду — портрет Ігоря", "Serhiy Zhadan with a microphone on stage, with Ihor’s portrait displayed on the screen behind him" %}
+  {% figure "/img/stories/zhadan.png", "Сергій Жадан зі мікрофоном на сцені, на екрані позаду — портрет Ігоря", "Serhiy Zhadan with a microphone on stage, with Ihor’s portrait displayed on the screen behind him", "portrait" %}
 
   Після концерту ми зустрілися з командою гурту. Поспілкувалися. Вони підписали фото Ігоря, подарували символіку, говорили щиро, по-людськи. Це була зустріч, у якій не було формальностей — тільки вдячність, пам’ять і тепло.
 
@@ -61,13 +61,13 @@ body_en: |
 
   We brought a large photograph of him and bought a separate seat in the first row. As if Igor were sitting right there with us. As if he had just stepped away for a moment and would return any second.
 
-  {% figure "/img/stories/slon_n_zhenya_horizontal.jpg", "Наречена Евгенія у залі поруч із портретом Ігоря", "Yevheniia, fiancée, in the hall beside Ihor’s portrait" %}
+  {% figure "/img/stories/slon_n_zhenya_horizontal.jpg", "Наречена Євгенія у залі поруч із портретом Ігоря", "Yevheniia, fiancée, in the hall beside Ihor’s portrait", "portrait" %}
 
   When the concert began, people moved closer to the stage, and Igor’s portrait ended up behind the crowd. And then something happened that we will remember forever. One of the musicians came over, gently picked up Igor’s photo — and placed it right on the stage. In the spotlight. Next to the band he loved so much. Exactly where he should have been standing himself.
 
   Before performing “Troieshchyna,” Serhiy Zhadan said a few warm words about Igor — about his story, his strength, and about all our defenders who gave their lives for Ukraine. They dedicated this song to him.
 
-  {% figure "/img/stories/zhadan.png", "Сергій Жадан зі мікрофоном на сцені, на екрані позаду — портрет Ігоря", "Serhiy Zhadan with a microphone on stage, with Ihor’s portrait displayed on the screen behind him" %}
+  {% figure "/img/stories/zhadan.png", "Сергій Жадан зі мікрофоном на сцені, на екрані позаду — портрет Ігоря", "Serhiy Zhadan with a microphone on stage, with Ihor’s portrait displayed on the screen behind him", "portrait" %}
 
   After the concert, we met with the band. We talked. They signed Igor’s photo, gave us gifts with the band’s symbols, and spoke with sincerity and kindness. There were no formalities — only gratitude, memory, and warmth.
 

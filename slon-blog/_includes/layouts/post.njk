@@ -20,11 +20,12 @@ isPost: true
 <section class="bio-hero">
   <div class="bio-hero-inner">
 
-    <div class="bio-hero-kicker">
+    <div class="story-attribution">
+      <img src="/img/igor-portrait-small.png" 
+          alt="Ігор «Слон» Утюж" 
+          class="story-attribution__avatar">
+      <span class="story-attribution__text">
       <span data-i18n="stories_filter_{{ category }}">{{ ('stories_filter_' + category) | t('uk') }}</span>
-      {% if author %}
-        · <span data-lang-content="uk">{{ author.uk }}</span><span data-lang-content="en">{{ author.en }}</span>
-      {% endif %}
     </div>
 
     <h1 class="bio-hero-title">
@@ -38,11 +39,17 @@ isPost: true
     </div>
 
     {% if lede %}
-    <p class="bio-hero-lede">
+    <p class="story-hero-lede">
       <span data-lang-content="uk">{{ lede.uk }}</span>
       <span data-lang-content="en">{{ lede.en }}</span>
     </p>
     {% endif %}
+
+    {% if author %}
+    <div class="story-attribution-author">
+      —&nbsp;<span data-lang-content="uk">{{ author.uk }}</span><span data-lang-content="en">{{ author.en }}</span>
+    </div>
+    {% endif %}    
 
     <div class="bio-hero-divider"></div>
   </div>
@@ -72,12 +79,12 @@ isPost: true
       {% if photos and photos.length %}
         {# Новий формат: масив #}
         {% for p in photos %}
-          <figure class="bio-figure {% if p.portrait %}bio-figure--portrait{% endif %}">
-            <div class="bio-figure-img">
+          <figure class="story-figure {% if p.portrait %}story-figure--portrait{% endif %}">
+            <div class="story-figure-img">
               <img src="{{ p.src }}" alt="{{ p.alt or title.uk }}" loading="lazy" />
         </div>
             {% if p.caption %}
-        <figcaption class="bio-figure-caption">
+        <figcaption class="story-figure-caption">
               <span data-lang-content="uk">{{ p.caption.uk }}</span>
               <span data-lang-content="en">{{ p.caption.en }}</span>
         </figcaption>
@@ -86,12 +93,12 @@ isPost: true
         {% endfor %}
       {% elif photo %}
         {# Старий формат: одне фото — для зворотної сумісності #}
-        <figure class="bio-figure {% if photo_portrait %}bio-figure--portrait{% endif %}">
-          <div class="bio-figure-img">
+        <figure class="story-figure {% if photo_portrait %}story-figure--portrait{% endif %}">
+          <div class="story-figure-img">
             <img src="{{ photo }}" alt="{{ title.uk }}" loading="lazy" />
           </div>
           {% if photo_caption %}
-          <figcaption class="bio-figure-caption">
+          <figcaption class="story-figure-caption">
             <span data-lang-content="uk">{{ photo_caption.uk }}</span>
             <span data-lang-content="en">{{ photo_caption.en }}</span>
           </figcaption>
