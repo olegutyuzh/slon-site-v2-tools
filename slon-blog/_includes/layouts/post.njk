@@ -3,10 +3,18 @@ layout: layouts/base.njk
 isPost: true
 ---
 
-{# Динамічно сетимо метатеги OG/title — для них показуємо UA-версію за замовчуванням #}
+{# ===== Метатеги для OG/title — UA-версія за замовчуванням ===== #}
 {% set pageTitle = title.uk %}
 {% set ogTitle = title.uk %}
 {% set description = lede.uk if lede else '' %}
+
+{#
+  Пріоритет вибору OG-зображення:
+  1. og_image (явно задане у frontmatter — спеціально оптимізоване, 1200×630)
+  2. перше фото з масиву photos[]
+  3. старе поле photo (зворотна сумісність)
+#}
+{% set photo = og_image or (photos[0].src if photos and photos.length) or photo %}
 
 {# ===== HERO посту ===== #}
 <section class="bio-hero">
@@ -45,18 +53,50 @@ isPost: true
   <div class="section-inner bio-chapter-inner">
     <div class="bio-content">
 
-      {% if photo %}
-      <figure class="bio-figure {% if photo_portrait %}bio-figure--portrait{% endif %}">
-        <div class="bio-figure-img">
-          <img src="{{ photo }}" alt="{{ title.uk }}" />
+      {#
+        ===== ФОТО =====
+        Підтримуємо два формати у frontmatter:
+
+        1) НОВИЙ: масив photos[]
+           photos:
+             - src: /img/stories/foo.jpg
+               caption:
+                 uk: "Підпис українською"
+                 en: "English caption"
+               portrait: true   # опційно
+             - src: /img/stories/bar.jpg
+
+        2) СТАРИЙ (fallback): поле photo + photo_caption + photo_portrait
+      #}
+
+      {% if photos and photos.length %}
+        {# Новий формат: масив #}
+        {% for p in photos %}
+          <figure class="bio-figure {% if p.portrait %}bio-figure--portrait{% endif %}">
+            <div class="bio-figure-img">
+              <img src="{{ p.src }}" alt="{{ p.alt or title.uk }}" loading="lazy" />
         </div>
-        {% if photo_caption %}
+            {% if p.caption %}
         <figcaption class="bio-figure-caption">
-          <span data-lang-content="uk">{{ photo_caption.uk }}</span>
-          <span data-lang-content="en">{{ photo_caption.en }}</span>
+              <span data-lang-content="uk">{{ p.caption.uk }}</span>
+              <span data-lang-content="en">{{ p.caption.en }}</span>
         </figcaption>
         {% endif %}
       </figure>
+        {% endfor %}
+      {% elif photo %}
+        {# Старий формат: одне фото — для зворотної сумісності #}
+        <figure class="bio-figure {% if photo_portrait %}bio-figure--portrait{% endif %}">
+          <div class="bio-figure-img">
+            <img src="{{ photo }}" alt="{{ title.uk }}" loading="lazy" />
+          </div>
+          {% if photo_caption %}
+          <figcaption class="bio-figure-caption">
+            <span data-lang-content="uk">{{ photo_caption.uk }}</span>
+            <span data-lang-content="en">{{ photo_caption.en }}</span>
+          </figcaption>
+          {% endif %}
+        </figure>
       {% endif %}
 
       {# Тіло поста: рендеримо обидві мови як два <div>, lang.js покаже потрібну #}

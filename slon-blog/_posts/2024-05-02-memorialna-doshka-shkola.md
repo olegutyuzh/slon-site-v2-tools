@@ -3,6 +3,7 @@ slug: memorialna-doshka-shkola
 date: 2024-05-02
 category: tribute
 photo: /img/stories/memorial_plaque.png
+photo_portrait: true
 
 title:
   uk: Меморіальна дошка в середній школі №277 
@@ -27,6 +28,9 @@ body_uk: |
 
   Меморіальна дошка — це не лише про пам’ять. Це про шлях хлопця, який виріс у цих коридорах, навчився дружити, відповідати за свої рішення і врешті став тим, ким його пам’ятає країна — воїном, що не відступив.
 
+  {% figure "/img/stories/memorial_plaque_table.png", "Портрет Ігора на столе перед школой", "Ihor’s portrait on a table in front of the school" %}
+
+
   Вічна шана Ігорю «Слону». Його історія почалася тут — і тут вона назавжди залишиться.
 
 body_en: |
@@ -35,6 +39,8 @@ body_en: |
   This school shaped the character that led Ihor to defend his values, first on the barricades and later on the frontline. His path — from these classrooms to the Maidan and then to the battlefield — is a reminder of how courage grows from ordinary days and familiar places.
 
   The memorial plaque is not only a tribute to his memory. It is a reminder that heroes often start as students walking these same corridors.
+
+   {% figure "/img/stories/memorial_plaque_table.png", "Портрет Ігора на столе перед школой", "Ihor’s portrait on a table in front of the school" %}
 
   Eternal honor to Ihor “Slon”. His story began here — and here it will live on.
 ---
