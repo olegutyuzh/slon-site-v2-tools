@@ -8,8 +8,6 @@ module.exports = function(eleventyConfig) {
   const i18n = JSON.parse(fs.readFileSync(i18nPath, "utf-8"));
 
   // ===== Фільтр t('key', 'uk') — повертає переклад =====
-  // У шаблонах: {{ 'menu_about' | t('uk') }}
-  // Якщо ключ відсутній — повертає [ключ] у дужках, щоб одразу побачити що чогось бракує
   eleventyConfig.addFilter("t", function(key, lang) {
     const dict = i18n[lang] || i18n.uk || {};
     return dict[key] !== undefined ? dict[key] : `[${key}]`;
@@ -35,9 +33,7 @@ module.exports = function(eleventyConfig) {
     });
   });
 
-  // ===== Helper: екрануємо HTML-небезпечні символи в підписах/alt =====
-  // Підписи приходять із frontmatter і тіла поста — треба захистити від випадкового
-  // або зловмисного HTML, що зламає верстку чи дозволить XSS.
+  // ===== Helper: екрануємо HTML-небезпечні символи =====
   function escapeHtml(s) {
     if (s === undefined || s === null) return "";
     return String(s)
@@ -48,22 +44,18 @@ module.exports = function(eleventyConfig) {
       .replace(/'/g, "&#39;");
   }
 
-  // ===== Шорткод figure — двомовне фото з підписом для тіла поста =====
-  // Використання у Markdown-полях body_uk / body_en:
-  //   {% figure "/img/stories/photo.jpg", "Підпис українською", "English caption" %}
-  //   {% figure "/img/stories/photo.jpg", "Підпис", "Caption", "portrait" %}
-  //   {% figure "/img/stories/photo.jpg" %}                  // без підпису
-  //
-  // Параметри:
-  //   src        — шлях до зображення (обовʼязковий)
-  //   captionUk  — підпис українською (опційний)
-  //   captionEn  — підпис англійською (опційний)
-  //   modifier   — "portrait" для вертикальних фото (опційний)
+  // ===== Helper: валідація Cloudflare Stream UID =====
+  // UID — це 32-символьний hex-рядок. Перевіряємо, щоб не вставити в iframe сміття.
+  function isValidStreamUid(uid) {
+    return typeof uid === "string" && /^[a-f0-9]{32}$/i.test(uid);
+  }
+
+  // ===== Шорткод figure — двомовне фото з підписом =====
+  // Використання: {% figure "/img/foo.jpg", "Підпис UA", "Caption EN", "portrait" %}
   eleventyConfig.addShortcode("figure", function(src, captionUk, captionEn, modifier) {
     const isPortrait = modifier === "portrait";
     const figClass = isPortrait ? "story-figure story-figure--portrait" : "story-figure";
     const safeSrc = escapeHtml(src);
-    // alt беремо з UA-підпису, або з EN, або порожній — для доступності
     const safeAlt = escapeHtml(captionUk || captionEn || "");
 
     let captionHtml = "";
@@ -82,29 +74,82 @@ module.exports = function(eleventyConfig) {
     </figure>`;
   });
 
-  // ===== Фільтр markdown — рендерить рядок Markdown у HTML =====
-  // Потрібен щоб поля body_uk / body_en (написані в Markdown) перетворилися на HTML.
-  // markdown-it-attrs додає підтримку синтаксису {:.class} для застосування CSS-класів
-  // до абзаців, цитат, заголовків — це дає змогу стилізувати окремі думки/нотатки.
+  // ===== Шорткод video — Cloudflare Stream відео з двомовним підписом =====
+  // Використання у Markdown body_uk / body_en:
+  //   {% video "31c9291ab41fac05471db4e73aa11717", "Інтервʼю, 2013", "Interview, 2013" %}
+  //   {% video "31c9291ab41fac05471db4e73aa11717", "Підпис", "Caption", "portrait" %}
+  //   {% video "31c9291ab41fac05471db4e73aa11717" %}                   // без підпису
+  //
+  // Параметри:
+  //   uid        — Cloudflare Stream Video UID (32 hex символи, обовʼязковий)
+  //   captionUk  — підпис українською (опційний)
+  //   captionEn  — підпис англійською (опційний)
+  //   modifier   — "portrait" для вертикальних відео (опційний)
+  //
+  // Використовує this.ctx.site.cloudflareStream.customerSubdomain з _data/site.js
+  eleventyConfig.addShortcode("video", function(uid, captionUk, captionEn, modifier) {
+    // Валідуємо UID — захист від випадкових помилок (зайві пробіли, повний URL замість UID)
+    if (!isValidStreamUid(uid)) {
+      console.warn(`[video shortcode] Invalid Cloudflare Stream UID: "${uid}"`);
+      return `<!-- video shortcode: invalid UID "${escapeHtml(uid)}" -->`;
+    }
+
+    // Дістаємо subdomain із глобальних даних (_data/site.js)
+    const subdomain = this.ctx?.site?.cloudflareStream?.customerSubdomain;
+    if (!subdomain) {
+      console.warn("[video shortcode] Missing site.cloudflareStream.customerSubdomain in _data/site.js");
+      return `<!-- video shortcode: missing customerSubdomain config -->`;
+    }
+
+    const safeUid = escapeHtml(uid);
+    const safeSubdomain = escapeHtml(subdomain);
+    const isPortrait = modifier === "portrait";
+    const figClass = isPortrait
+      ? "story-figure story-figure--video story-figure--portrait"
+      : "story-figure story-figure--video";
+
+    // Постер для preview перед запуском (Cloudflare генерує автоматично)
+    const posterUrl = `https://${safeSubdomain}/${safeUid}/thumbnails/thumbnail.jpg`;
+
+    // Title для iframe — допомога скрін-рідерам
+    const safeTitle = escapeHtml(captionUk || captionEn || "Відео");
+
+    let captionHtml = "";
+    if (captionUk || captionEn) {
+      captionHtml = `
+        <figcaption class="story-figure-caption">
+          <span data-lang-content="uk">${escapeHtml(captionUk || "")}</span>
+          <span data-lang-content="en">${escapeHtml(captionEn || "")}</span>
+        </figcaption>`;
+    }
+
+    // loading="lazy" на iframe — не вантажить плеєр поки користувач не доскролить
+    // allowfullscreen — кнопка повноекранного режиму
+    // allow="..." — дозволи для автозапуску, picture-in-picture, тощо
+    return `<figure class="${figClass}">
+      <div class="story-figure-video-wrap">
+        <iframe
+          src="https://${safeSubdomain}/${safeUid}/iframe?poster=${encodeURIComponent(posterUrl)}"
+          title="${safeTitle}"
+          loading="lazy"
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          allowfullscreen></iframe>
+      </div>${captionHtml}
+    </figure>`;
+  });
+
+  // ===== Фільтр markdown =====
   const markdownIt = require("markdown-it");
   const markdownItAttrs = require("markdown-it-attrs");
   const md = markdownIt({ html: true, breaks: false, linkify: true })
     .use(markdownItAttrs, {
-      // Дозволяємо тільки CSS-класи (.class) — без id, без довільних атрибутів,
-      // щоб уникнути ризиків з вмістом, що приходить як текст
       allowedAttributes: ["class"]
     });
 
-  // Фільтр markdown — двопрохідна обробка:
-  //   1) Спочатку рендеримо Nunjucks (щоб {% figure %} та інші шорткоди спрацювали)
-  //   2) Потім рендеримо Markdown
-  // Аргумент `ctx` потрібен, бо без нього шорткод не отримає контекст сторінки.
+  // Двопрохідна обробка: спочатку Nunjucks (для шорткодів), потім Markdown
   eleventyConfig.addFilter("markdown", function(text) {
     if (!text) return "";
 
-    // Перший прохід: Nunjucks обробляє {% figure %}, {{ }} тощо
-    // this.ctx — контекст поточної сторінки (page, eleventy, тощо)
-    // this.env — Nunjucks-середовище з усіма зареєстрованими шорткодами/фільтрами
     let processed = text;
     try {
       if (this.env && this.ctx) {
@@ -115,7 +160,6 @@ module.exports = function(eleventyConfig) {
       processed = text;
     }
 
-    // Другий прохід: Markdown → HTML
     return md.render(processed);
   });
 
