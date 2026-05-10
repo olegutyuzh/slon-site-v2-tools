@@ -46,6 +46,7 @@ stories_filter_childhood
 stories_filter_maidan
 stories_filter_service
 stories_filter_tribute
+stories_filter_events
 stories_read_more
 stories_empty
 story_nav_prev

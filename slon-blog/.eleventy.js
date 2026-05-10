@@ -45,13 +45,18 @@ module.exports = function(eleventyConfig) {
   }
 
   // ===== Helper: валідація Cloudflare Stream UID =====
-  // UID — це 32-символьний hex-рядок. Перевіряємо, щоб не вставити в iframe сміття.
   function isValidStreamUid(uid) {
     return typeof uid === "string" && /^[a-f0-9]{32}$/i.test(uid);
   }
 
+  // ===== Helper: валідація BCP-47 мовного коду =====
+  // Дозволяємо "uk", "en", "uk-UA", "en-US" тощо. Захист від випадкового
+  // вписання довільних рядків у URL.
+  function isValidLangCode(lang) {
+    return typeof lang === "string" && /^[a-z]{2}(-[A-Z]{2})?$/.test(lang);
+  }
+
   // ===== Шорткод figure — двомовне фото з підписом =====
-  // Використання: {% figure "/img/foo.jpg", "Підпис UA", "Caption EN", "portrait" %}
   eleventyConfig.addShortcode("figure", function(src, captionUk, captionEn, modifier) {
     const isPortrait = modifier === "portrait";
     const figClass = isPortrait ? "story-figure story-figure--portrait" : "story-figure";
@@ -75,26 +80,33 @@ module.exports = function(eleventyConfig) {
   });
 
   // ===== Шорткод video — Cloudflare Stream відео з двомовним підписом =====
-  // Використання у Markdown body_uk / body_en:
-  //   {% video "31c9291ab41fac05471db4e73aa11717", "Інтервʼю, 2013", "Interview, 2013" %}
-  //   {% video "31c9291ab41fac05471db4e73aa11717", "Підпис", "Caption", "portrait" %}
-  //   {% video "31c9291ab41fac05471db4e73aa11717" %}                   // без підпису
   //
-  // Параметри:
-  //   uid        — Cloudflare Stream Video UID (32 hex символи, обовʼязковий)
-  //   captionUk  — підпис українською (опційний)
-  //   captionEn  — підпис англійською (опційний)
-  //   modifier   — "portrait" для вертикальних відео (опційний)
+  // Базове використання:
+  //   {% video "31c9291ab41fac05471db4e73aa11717", "Інтервʼю", "Interview" %}
   //
-  // Використовує this.ctx.site.cloudflareStream.customerSubdomain з _data/site.js
-  eleventyConfig.addShortcode("video", function(uid, captionUk, captionEn, modifier) {
-    // Валідуємо UID — захист від випадкових помилок (зайві пробіли, повний URL замість UID)
+  // З модифікатором "portrait" (вертикальне):
+  //   {% video "...", "Підпис", "Caption", "portrait" %}
+  //
+  // З опціями (5-й аргумент — обʼєкт):
+  //   {% video "...", "Підпис", "Caption", null, { defaultTextTrack: "uk" } %}
+  //   {% video "...", "Підпис", "Caption", "portrait", { defaultTextTrack: "uk", autoplay: false } %}
+  //
+  // Опції:
+  //   defaultTextTrack — мовний код субтитрів, що ввімкнуться автоматично ("uk", "en", "uk-UA", ...).
+  //                      ВАЖЛИВО: субтитри мають бути попередньо завантажені до відео
+  //                      в Cloudflare Dashboard → Stream → відео → Captions.
+  //   primaryColor     — колір контролів плеєра (hex без #), напр. "b8956a"
+  //   muted            — true/false, починати без звуку (корисно з autoplay)
+  //   autoplay         — true/false (за замовчуванням false; майже всі браузери блокують
+  //                      autoplay зі звуком, тому використовувати разом з muted=true)
+  //   loop             — true/false, зациклити відео
+  //   preload          — "none" | "metadata" | "auto" (за замовчуванням "metadata")
+  eleventyConfig.addShortcode("video", function(uid, captionUk, captionEn, modifier, options) {
     if (!isValidStreamUid(uid)) {
       console.warn(`[video shortcode] Invalid Cloudflare Stream UID: "${uid}"`);
       return `<!-- video shortcode: invalid UID "${escapeHtml(uid)}" -->`;
     }
 
-    // Дістаємо subdomain із глобальних даних (_data/site.js)
     const subdomain = this.ctx?.site?.cloudflareStream?.customerSubdomain;
     if (!subdomain) {
       console.warn("[video shortcode] Missing site.cloudflareStream.customerSubdomain in _data/site.js");
@@ -108,10 +120,38 @@ module.exports = function(eleventyConfig) {
       ? "story-figure story-figure--video story-figure--portrait"
       : "story-figure story-figure--video";
 
-    // Постер для preview перед запуском (Cloudflare генерує автоматично)
+    // Постер для preview перед запуском
     const posterUrl = `https://${safeSubdomain}/${safeUid}/thumbnails/thumbnail.jpg`;
 
-    // Title для iframe — допомога скрін-рідерам
+    // ===== Збираємо параметри URL для iframe плеєра =====
+    // Документація: https://developers.cloudflare.com/stream/viewing-videos/using-the-stream-player/
+    const params = new URLSearchParams();
+    params.set("poster", posterUrl);
+
+    const opts = options || {};
+
+    // Субтитри — найважливіше
+    if (opts.defaultTextTrack) {
+      if (isValidLangCode(opts.defaultTextTrack)) {
+        params.set("defaultTextTrack", opts.defaultTextTrack);
+      } else {
+        console.warn(`[video shortcode] Invalid defaultTextTrack: "${opts.defaultTextTrack}"`);
+      }
+    }
+
+    // Колір контролів (без #, тільки hex)
+    if (opts.primaryColor && /^[a-f0-9]{6}$/i.test(opts.primaryColor)) {
+      params.set("primaryColor", opts.primaryColor);
+    }
+
+    if (opts.muted === true) params.set("muted", "true");
+    if (opts.autoplay === true) params.set("autoplay", "true");
+    if (opts.loop === true) params.set("loop", "true");
+    if (["none", "metadata", "auto"].includes(opts.preload)) {
+      params.set("preload", opts.preload);
+    }
+
+    const iframeSrc = `https://${safeSubdomain}/${safeUid}/iframe?${params.toString()}`;
     const safeTitle = escapeHtml(captionUk || captionEn || "Відео");
 
     let captionHtml = "";
@@ -123,13 +163,10 @@ module.exports = function(eleventyConfig) {
         </figcaption>`;
     }
 
-    // loading="lazy" на iframe — не вантажить плеєр поки користувач не доскролить
-    // allowfullscreen — кнопка повноекранного режиму
-    // allow="..." — дозволи для автозапуску, picture-in-picture, тощо
     return `<figure class="${figClass}">
       <div class="story-figure-video-wrap">
         <iframe
-          src="https://${safeSubdomain}/${safeUid}/iframe?poster=${encodeURIComponent(posterUrl)}"
+          src="${iframeSrc}"
           title="${safeTitle}"
           loading="lazy"
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
@@ -146,7 +183,6 @@ module.exports = function(eleventyConfig) {
       allowedAttributes: ["class"]
     });
 
-  // Двопрохідна обробка: спочатку Nunjucks (для шорткодів), потім Markdown
   eleventyConfig.addFilter("markdown", function(text) {
     if (!text) return "";
 

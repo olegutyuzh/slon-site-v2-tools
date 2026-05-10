@@ -1,5 +1,5 @@
 ---
-slug: сonсert-zhadana
+slug: concert-zhadana
 date: 2024-02-07
 category: tribute
 photo: /img/stories/scene.png
@@ -9,8 +9,8 @@ title:
   en: The concert Igor finally made it to
 
 author:
-  uk: Євгенія, наречена
-  en: Yevheniia, fiancée
+  uk: Розповідає Євгенія, наречена
+  en: Told by Yevheniia, the fiancée
 
 # Окреме оптимізоване зображення для соцмереж (1200×630, з обличчям/текстом по центру)
 # og_image: /img/stories/og/conсert-zhadana-og.png  
@@ -41,7 +41,7 @@ body_uk: |
   А перед виконанням «Троєщина» Сергій Жадан сказав кілька теплих слів про Ігоря. Про його шлях. Про його силу. І про всіх наших захисників, які віддали життя за Україну. Цю пісню вони виконали для нього.
 
   {% figure "/img/stories/zhadan.png", "Сергій Жадан з мікрофоном на сцені, на екрані позаду — портрет Ігоря", "Serhiy Zhadan with a microphone on stage, with Ihor’s portrait displayed on the screen behind him", "portrait" %}
-  {% video "c263678de9050d8279278bfe2143b937", "Промова Сергія Жадана.", "Serhiy Zhadan’s speech." %}
+  {% video "c263678de9050d8279278bfe2143b937", "Слова Сергія Жадана перед виконанням „Троєщина”. Калуш, 2 лютого 2024.", "Serhiy Zhadan’s words before performing “Troyeshchyna.” Kalush, February 2, 2024." %}
 
 
   Після концерту ми зустрілися з командою гурту. Поспілкувалися. Вони підписали фото Ігоря, подарували символіку, говорили щиро, по-людськи. Це була зустріч, у якій не було формальностей — тільки вдячність, пам’ять і тепло.
@@ -70,7 +70,7 @@ body_en: |
   Before performing “Troieshchyna,” Serhiy Zhadan said a few warm words about Igor — about his story, his strength, and about all our defenders who gave their lives for Ukraine. They dedicated this song to him.
 
   {% figure "/img/stories/zhadan.png", "Сергій Жадан з мікрофоном на сцені, на екрані позаду — портрет Ігоря", "Serhiy Zhadan with a microphone on stage, with Ihor’s portrait displayed on the screen behind him", "portrait" %}
-  {% video "c263678de9050d8279278bfe2143b937", "Промова Сергія Жадана.", "Serhiy Zhadan’s speech." %}
+  {% video "c263678de9050d8279278bfe2143b937", "Слова Сергія Жадана перед виконанням „Троєщина”. Калуш, 2 лютого 2024.", "Serhiy Zhadan’s words before performing “Troyeshchyna.” Kalush, February 2, 2024." %}
 
   After the concert, we met with the band. We talked. They signed Igor’s photo, gave us gifts with the band’s symbols, and spoke with sincerity and kindness. There were no formalities — only gratitude, memory, and warmth.
 
