@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <!-- Градієнт золота -->
+    <linearGradient id="goldShield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5D08A"></stop>
+      <stop offset="50%" stop-color="#D4A45A"></stop>
+      <stop offset="100%" stop-color="#8C6239"></stop>
+    </linearGradient>
+
+    <!-- Легке світіння -->
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"></feGaussianBlur>
+      <feMerge>
+        <feMergeNode in="blur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+
+  </defs>
+
+  <!-- Основний щит -->
+  <path d="M12 2L4 5v6c0 5.25 3.438 10.125 8 11 4.563-.875 8-5.75 8-11V5l-8-3z" fill="url(#goldShield)" filter="url(#glow)"></path>
+
+  <!-- Хрест (контрастний, чистий) -->
+  <path d="M11 7h2v10h-2zM7 11h10v2H7z" fill="#0B0B0F" opacity="0.9"></path>
+
+</svg>

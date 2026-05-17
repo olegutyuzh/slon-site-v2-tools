@@ -6,12 +6,13 @@
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/biography.css" />
   <link rel="stylesheet" href="/blog.css" />
+  <link rel="stylesheet" href="/stories.css" />
   <link rel="stylesheet" href="/voices.css" />
   <link rel="stylesheet" href="/share.css" />
   <link rel="stylesheet" href="/bottom_menu.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap&subset=cyrillic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap&subset=cyrillic">
 
   <title>Історії — Ігор «Слон» Утюж</title>
 
@@ -41,11 +42,19 @@
 
   <!-- GoatCounter analytics -->
   <script data-goatcounter="https://slon.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
         
 </head>
 
 <body class="page">
+
+  
+  <div class="site-atmosphere" aria-hidden="true">
+    <span class="ambient-glow ambient-glow-main"></span>
+    <span class="ambient-glow ambient-glow-side"></span>
+    <span class="ambient-haze"></span>
+    <span class="ambient-grain"></span>
+  </div>
 
   
   <header class="header">
@@ -82,41 +91,50 @@
 
 
 
-<section class="bio-hero">
+<section class="bio-hero bio-hero--centered story-hero">
+  <div class="bio-hero-bg" aria-hidden="true">
+    <div class="bio-hero-bg-glow"></div>
+    <div class="bio-hero-bg-haze"></div>
+  </div>
+
   <div class="bio-hero-inner">
+    <div class="bio-hero-content">
 
-    <div class="story-attribution">
-      <img src="/img/igor-portrait-small.png" 
-          alt="Ігор «Слон» Утюж" 
-          class="story-attribution__avatar">
-      <span class="story-attribution__text">
-      <span data-i18n="stories_filter_tribute">Вшанування</span>
-    </div>
+      <div class="story-hero-meta">
+        <span class="story-hero-category" data-i18n="stories_filter_tribute">Вшанування</span>
+        <span class="story-hero-dot" aria-hidden="true">·</span>
+        <span class="story-hero-date">
+          <span data-lang-content="uk">18 квітня 2026</span>
+          <span data-lang-content="en">April 18, 2026</span>
+        </span>
+      </div>
 
-    <h1 class="bio-hero-title">
-      <span data-lang-content="uk">З Днем народження, синку...</span>
-      <span data-lang-content="en">Happy Birthday, My Son...</span>
-    </h1>
+      <h1 class="bio-hero-title">
+        <span data-lang-content="uk">З Днем народження, синку...</span>
+        <span data-lang-content="en">Happy Birthday, My Son...</span>
+      </h1>
 
-    <div class="bio-hero-years">
-      <span data-lang-content="uk">18 квітня 2026</span>
-      <span data-lang-content="en">April 18, 2026</span>
-    </div>
-
-    
-    <p class="story-hero-lede">
-      <span data-lang-content="uk">Вітаю, дорогі друзі. Сьогодні день, який мав би бути святом — моєму синові сьогодні виповнилося б 30 років. Мали б зібратися разом, сміятися, жартувати, обіймати іменинника, будувати плани…</span>
-      <span data-lang-content="en">Greetings, dear friends. Today is a day that was supposed to be a celebration — my son would have turned 30. We should have gathered together, laughed, joked, embraced the birthday boy, made plans…</span>
-    </p>
-    
-
-    
-    <div class="story-attribution-author">
-      —&nbsp;<span data-lang-content="uk">Ніна, мати</span><span data-lang-content="en">Nina, mother</span>
-    </div>
-        
+      <div class="bio-hero-divider"></div>
 
       
+      <p class="story-hero-lede">
+        <span data-lang-content="uk">Сьогодні день, який мав би бути святом — моєму синові сьогодні виповнилося б 30 років. Мали б зібратися разом, сміятися, жартувати, обіймати іменинника, будувати плани…</span>
+        <span data-lang-content="en">Today is a day that was supposed to be a celebration — my son would have turned 30. We should have gathered together, laughed, joked, embraced the birthday boy, made plans…</span>
+      </p>
+      
+
+      
+      <div class="story-hero-byline">
+        <span class="story-hero-byline__label" data-i18n="story_byline_label">Розповідає</span>
+        <span class="story-hero-byline__divider" aria-hidden="true"></span>
+        <span class="story-hero-byline__name">
+          <span data-lang-content="uk">Ніна, мати</span>
+          <span data-lang-content="en">Nina, the mother</span>
+        </span>
+      </div>
+      
+
+    </div>
   </div>
 </section>
 
@@ -129,7 +147,7 @@
 
       
         
-        <figure class="story-figure story-figure--portrait">
+        <figure class="story-figure story-figure--lead story-figure--portrait">
           <div class="story-figure-img">
             <img src="/img/stories/anniversary.jpg" alt="З Днем народження, синку..." loading="lazy" />
           </div>

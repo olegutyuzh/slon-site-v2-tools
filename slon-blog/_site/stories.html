@@ -6,12 +6,13 @@
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/biography.css" />
   <link rel="stylesheet" href="/blog.css" />
+  <link rel="stylesheet" href="/stories.css" />
   <link rel="stylesheet" href="/voices.css" />
   <link rel="stylesheet" href="/share.css" />
   <link rel="stylesheet" href="/bottom_menu.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap&subset=cyrillic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap&subset=cyrillic">
 
   <title>Історії — Ігор «Слон» Утюж</title>
 
@@ -36,11 +37,19 @@
 
   <!-- GoatCounter analytics -->
   <script data-goatcounter="https://slon.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
         
 </head>
 
 <body class="page">
+
+  
+  <div class="site-atmosphere" aria-hidden="true">
+    <span class="ambient-glow ambient-glow-main"></span>
+    <span class="ambient-glow ambient-glow-side"></span>
+    <span class="ambient-haze"></span>
+    <span class="ambient-grain"></span>
+  </div>
 
   
   <header class="header">
@@ -68,15 +77,22 @@
   </header>
 
   
-<section class="bio-hero">
+
+<section class="bio-hero bio-hero--centered">
+  <div class="bio-hero-bg" aria-hidden="true">
+    <div class="bio-hero-bg-glow"></div>
+    <div class="bio-hero-bg-haze"></div>
+  </div>
   <div class="bio-hero-inner">
-    <div class="bio-hero-kicker" data-i18n="stories_kicker">Блог пам'яті</div>
-    <h1 class="bio-hero-title" data-i18n="stories_title">Історії</h1>
-    <p class="bio-hero-lede" data-i18n="stories_subtitle">
-      Спогади, події, маленькі та великі історії про Ігоря — від родини, друзів і побратимів.
-      Щоразу, коли в нас є що додати, з'являється новий запис.
-    </p>
-    <div class="bio-hero-divider"></div>
+    <div class="bio-hero-content">
+      <div class="bio-hero-kicker" data-i18n="stories_kicker">Блог пам'яті</div>
+      <h1 class="bio-hero-title" data-i18n="stories_title">Історії</h1>
+      <div class="bio-hero-divider"></div>
+      <p class="bio-hero-lede" data-i18n="stories_subtitle">
+        Спогади, події, маленькі та великі історії про Ігоря — від родини, друзів і побратимів.
+        Щоразу, коли в нас є що додати, з'являється новий запис.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -84,12 +100,36 @@
   <div class="section-inner bio-chapter-inner">
 
     
+    
+    
+    
+    
+    
+    
+
+    
+ 
     <div class="stories-filters">
-      <button type="button" class="stories-filter is-active" data-filter="all" data-i18n="stories_filter_all">Усі</button>
-      <button type="button" class="stories-filter" data-filter="tribute" data-i18n="stories_filter_tribute">Вшанування</button>      
-      <button type="button" class="stories-filter" data-filter="maidan" data-i18n="stories_filter_maidan">Майдан</button>
-      <button type="button" class="stories-filter" data-filter="service" data-i18n="stories_filter_service">Служба</button>
-      <button type="button" class="stories-filter" data-filter="service" data-i18n="stories_filter_events">Події</button>      
+      <button type="button" class="stories-filter is-active" data-filter="all">
+        <span class="stories-filter-label" data-i18n="stories_filter_all">Усі</span>
+        <span class="stories-filter-count" aria-label="кількість історій">4</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="tribute">
+        <span class="stories-filter-label" data-i18n="stories_filter_tribute">Вшанування</span>
+        <span class="stories-filter-count" aria-label="кількість історій">2</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="maidan" disabled>
+        <span class="stories-filter-label" data-i18n="stories_filter_maidan">Майдан</span>
+        <span class="stories-filter-count" aria-label="кількість історій">0</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="service" disabled>
+        <span class="stories-filter-label" data-i18n="stories_filter_service">Служба</span>
+        <span class="stories-filter-count" aria-label="кількість історій">0</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="events">
+        <span class="stories-filter-label" data-i18n="stories_filter_events">Події</span>
+        <span class="stories-filter-count" aria-label="кількість історій">2</span>
+      </button>
     </div>
 
     
@@ -121,18 +161,20 @@
 
           
           <p class="story-card-lede">
-            <span data-lang-content="uk">Вітаю, дорогі друзі. Сьогодні день, який мав би бути святом — моєму синові сьогодні виповнилося б 30 років. Мали б зібратися разом, сміятися, жартувати, обіймати іменинника, будувати плани…</span>
-            <span data-lang-content="en">Greetings, dear friends. Today is a day that was supposed to be a celebration — my son would have turned 30. We should have gathered together, laughed, joked, embraced the birthday boy, made plans…</span>
+            <span data-lang-content="uk">Сьогодні день, який мав би бути святом — моєму синові сьогодні виповнилося б 30 років. Мали б зібратися разом, сміятися, жартувати, обіймати іменинника, будувати плани…</span>
+            <span data-lang-content="en">Today is a day that was supposed to be a celebration — my son would have turned 30. We should have gathered together, laughed, joked, embraced the birthday boy, made plans…</span>
           </p>
           
 
-          
-          <div class="story-card-author">
-            — <span data-lang-content="uk">Ніна, мати</span><span data-lang-content="en">Nina, mother</span>
-          </div>
-          
+          <div class="story-card-footer">
+            
+            <div class="story-card-author">
+              <span data-lang-content="uk">Ніна, мати</span><span data-lang-content="en">Nina, the mother</span>
+            </div>
+            
 
-          <a href="/stories/den-narodzhenia.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+            <a href="/stories/den-narodzhenia.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+          </div>
         </div>
       </article>
       
@@ -140,7 +182,7 @@
 
         
         <a href="/stories/memorialna-doshka-shkola.html" class="story-card-photo">
-          <img src="/img/stories/memorial_plaque.png" alt="Меморіальна дошка в середній школі №277" loading="lazy" />
+          <img src="/img/stories/memorial_plaque.jpg" alt="Меморіальна дошка в середній школі №277" loading="lazy" />
         </a>
         
 
@@ -167,27 +209,72 @@
           </p>
           
 
-          
-          <div class="story-card-author">
-            — <span data-lang-content="uk">Олег, батько</span><span data-lang-content="en">Oleg, father</span>
-          </div>
-          
+          <div class="story-card-footer">
+            
+            <div class="story-card-author">
+              <span data-lang-content="uk">Олег, батько</span><span data-lang-content="en">Oleg, the father</span>
+            </div>
+            
 
-          <a href="/stories/memorialna-doshka-shkola.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+            <a href="/stories/memorialna-doshka-shkola.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+          </div>
         </div>
       </article>
       
-      <article class="story-card" data-category="tribute">
+      <article class="story-card" data-category="events">
 
         
-        <a href="/stories/concert-zhadana.html" class="story-card-photo">
-          <img src="/img/stories/scene.png" alt="Концерт, на який Ігор таки потрапив" loading="lazy" />
+        <a href="/stories/football.html" class="story-card-photo">
+          <img src="/img/stories/football.jpg" alt="Матчи збірної України" loading="lazy" />
         </a>
         
 
         <div class="story-card-body">
           <div class="story-card-meta">
-            <span class="story-card-category" data-i18n="stories_filter_tribute">Вшанування</span>
+            <span class="story-card-category" data-i18n="stories_filter_events">Події</span>
+            <span class="story-card-date">
+              <span data-lang-content="uk">21 березня 2024</span>
+              <span data-lang-content="en">March 21, 2024</span>
+            </span>
+          </div>
+
+          <h2 class="story-card-title">
+            <a href="/stories/football.html">
+              <span data-lang-content="uk">Матчи збірної України</span>
+              <span data-lang-content="en">Ukraine national team matches</span>
+            </a>
+          </h2>
+
+          
+          <p class="story-card-lede">
+            <span data-lang-content="uk">Ігор любив футбол — гру, у якій він відчував свободу, азарт і командний дух. Він стежив за матчами, ділився емоціями з друзями й сам виходив на поле, коли була нагода. Футбол був для нього способом тримати себе в тонусі й просто радіти життю.</span>
+            <span data-lang-content="en">Ihor loved football — a game that gave him a sense of freedom, excitement, and team spirit. He followed matches, shared emotions with friends, and played himself whenever he had the chance. Football kept him energized and simply brought him joy.</span>
+          </p>
+          
+
+          <div class="story-card-footer">
+            
+            <div class="story-card-author">
+              <span data-lang-content="uk">Ніна, мати</span><span data-lang-content="en">Nina, the mother</span>
+            </div>
+            
+
+            <a href="/stories/football.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="story-card" data-category="events">
+
+        
+        <a href="/stories/concert-zhadana.html" class="story-card-photo">
+          <img src="/img/stories/scene.jpg" alt="Концерт, на який Ігор таки потрапив" loading="lazy" />
+        </a>
+        
+
+        <div class="story-card-body">
+          <div class="story-card-meta">
+            <span class="story-card-category" data-i18n="stories_filter_events">Події</span>
             <span class="story-card-date">
               <span data-lang-content="uk">7 лютого 2024</span>
               <span data-lang-content="en">February 7, 2024</span>
@@ -208,13 +295,15 @@
           </p>
           
 
-          
-          <div class="story-card-author">
-            — <span data-lang-content="uk">Розповідає Євгенія, наречена</span><span data-lang-content="en">Told by Yevheniia, the fiancée</span>
-          </div>
-          
+          <div class="story-card-footer">
+            
+            <div class="story-card-author">
+              <span data-lang-content="uk">Євгенія, наречена</span><span data-lang-content="en">Yevheniia, the fiancée</span>
+            </div>
+            
 
-          <a href="/stories/concert-zhadana.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+            <a href="/stories/concert-zhadana.html" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+          </div>
         </div>
       </article>
       
@@ -250,7 +339,7 @@
   });
 
   const initial = (location.hash || '#all').slice(1);
-  if (['all','childhood','maidan','service','tribute'].includes(initial)) {
+  if (['all','tribute','maidan','service','events'].includes(initial)) {
     applyFilter(initial);
   }
 })();

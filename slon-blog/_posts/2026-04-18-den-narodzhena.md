@@ -11,11 +11,11 @@ title:
 
 author:
   uk: Ніна, мати
-  en: Nina, mother
+  en: Nina, the mother
 
 lede:
-  uk: Вітаю, дорогі друзі. Сьогодні день, який мав би бути святом — моєму синові сьогодні виповнилося б 30 років. Мали б зібратися разом, сміятися, жартувати, обіймати іменинника, будувати плани…
-  en: Greetings, dear friends. Today is a day that was supposed to be a celebration — my son would have turned 30. We should have gathered together, laughed, joked, embraced the birthday boy, made plans…
+  uk: Сьогодні день, який мав би бути святом — моєму синові сьогодні виповнилося б 30 років. Мали б зібратися разом, сміятися, жартувати, обіймати іменинника, будувати плани…
+  en: Today is a day that was supposed to be a celebration — my son would have turned 30. We should have gathered together, laughed, joked, embraced the birthday boy, made plans…
 
 photo_caption:
   uk: День народження, 18 квітня 2026

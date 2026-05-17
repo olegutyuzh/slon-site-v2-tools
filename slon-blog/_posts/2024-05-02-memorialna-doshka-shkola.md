@@ -2,7 +2,7 @@
 slug: memorialna-doshka-shkola
 date: 2024-05-02
 category: tribute
-photo: /img/stories/memorial_plaque.png
+photo: /img/stories/memorial_plaque.jpg
 photo_portrait: true
 
 title:
@@ -11,7 +11,7 @@ title:
 
 author:
   uk: Олег, батько
-  en: Oleg, father
+  en: Oleg, the father
 
 lede:
   uk: Сьогодні в середній школі №277 відкрили меморіальну дошку на честь Ігоря Утюжа — випускника, для якого ця школа стала першою спільнотою та друзями. Саме з ними він пройшов Майдан і згодом пішов захищати Україну
@@ -28,7 +28,7 @@ body_uk: |
 
   Меморіальна дошка — це не лише про пам’ять. Це про шлях хлопця, який виріс у цих коридорах, навчився дружити, відповідати за свої рішення і врешті став тим, ким його пам’ятає країна — воїном, що не відступив.
 
-  {% figure "/img/stories/memorial_plaque_table.png", "Портрет Ігора на столе перед школой", "Ihor’s portrait on a table in front of the school", "portrait" %}
+  {% figure "/img/stories/memorial_plaque_table.jpg", "Портрет Ігора на столе перед школой", "Ihor’s portrait on a table in front of the school", "portrait" %}
 
 
   Вічна шана Ігорю «Слону». Його історія почалася тут — і тут вона назавжди залишиться.
@@ -40,7 +40,7 @@ body_en: |
 
   The memorial plaque is not only a tribute to his memory. It is a reminder that heroes often start as students walking these same corridors.
 
-   {% figure "/img/stories/memorial_plaque_table.png", "Портрет Ігора на столе перед школой", "Ihor’s portrait on a table in front of the school", "portrait" %}
+   {% figure "/img/stories/memorial_plaque_table.jpg", "Портрет Ігора на столе перед школой", "Ihor’s portrait on a table in front of the school", "portrait" %}
 
   Eternal honor to Ihor “Slon”. His story began here — and here it will live on.
 ---

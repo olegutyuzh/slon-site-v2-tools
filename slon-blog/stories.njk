@@ -9,28 +9,72 @@ canonical: https://slon.life/stories.html
 isStoriesIndex: true
 ---
 
-<section class="bio-hero">
+{# ===== HERO СТОРІНКИ ІСТОРІЙ ===== #}
+<section class="bio-hero bio-hero--centered">
+  <div class="bio-hero-bg" aria-hidden="true">
+    <div class="bio-hero-bg-glow"></div>
+    <div class="bio-hero-bg-haze"></div>
+  </div>
   <div class="bio-hero-inner">
-    <div class="bio-hero-kicker" data-i18n="stories_kicker">Блог пам'яті</div>
-    <h1 class="bio-hero-title" data-i18n="stories_title">Історії</h1>
-    <p class="bio-hero-lede" data-i18n="stories_subtitle">
-      Спогади, події, маленькі та великі історії про Ігоря — від родини, друзів і побратимів.
-      Щоразу, коли в нас є що додати, з'являється новий запис.
-    </p>
-    <div class="bio-hero-divider"></div>
+    <div class="bio-hero-content">
+      <div class="bio-hero-kicker" data-i18n="stories_kicker">Блог пам'яті</div>
+      <h1 class="bio-hero-title" data-i18n="stories_title">Історії</h1>
+      <div class="bio-hero-divider"></div>
+      <p class="bio-hero-lede" data-i18n="stories_subtitle">
+        Спогади, події, маленькі та великі історії про Ігоря — від родини, друзів і побратимів.
+        Щоразу, коли в нас є що додати, з'являється новий запис.
+      </p>
+    </div>
   </div>
 </section>
 
 <section class="section bio-chapter">
   <div class="section-inner bio-chapter-inner">
 
-    {# ===== ФІЛЬТРИ РУБРИК ===== #}
+    {# ===== ФІЛЬТРИ РУБРИК =====
+       Лічильники обчислюються на етапі білду.
+       
+       Чому groupby, а не selectattr: у Nunjucks selectattr працює тільки
+       з одним рівнем атрибута і не розуміє dotted path 'data.category'
+       (на відміну від Jinja2). А groupby — розуміє: він просто розбиває
+       масив на групи за ключем.
+       
+       collections.posts | groupby('data.category') → 
+         { tribute: [...], events: [...], maidan: [...] }
+       
+       Далі звертаємось до groups.tribute.length тощо. #}
+    {% set countAll = collections.posts | length %}
+    {% set groups = collections.posts | groupby('data.category') %}
+    {% set countTribute = (groups.tribute | length) or 0 %}
+    {% set countMaidan = (groups.maidan | length) or 0 %}
+    {% set countService = (groups.service | length) or 0 %}
+    {% set countEvents = (groups.events | length) or 0 %}
+
+    {# ===== TEMPORARY DEBUG — видалити після перевірки =====
+       Виведе у HTML-коментар список усіх постів з їх categories,
+       щоб побачити, що насправді стоїть у frontmatter. Не впливає на вигляд. #}
+ 
     <div class="stories-filters">
-      <button type="button" class="stories-filter is-active" data-filter="all" data-i18n="stories_filter_all">Усі</button>
-      <button type="button" class="stories-filter" data-filter="tribute" data-i18n="stories_filter_tribute">Вшанування</button>      
-      <button type="button" class="stories-filter" data-filter="maidan" data-i18n="stories_filter_maidan">Майдан</button>
-      <button type="button" class="stories-filter" data-filter="service" data-i18n="stories_filter_service">Служба</button>
-      <button type="button" class="stories-filter" data-filter="service" data-i18n="stories_filter_events">Події</button>      
+      <button type="button" class="stories-filter is-active" data-filter="all">
+        <span class="stories-filter-label" data-i18n="stories_filter_all">Усі</span>
+        <span class="stories-filter-count" aria-label="кількість історій">{{ countAll }}</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="tribute"{% if countTribute == 0 %} disabled{% endif %}>
+        <span class="stories-filter-label" data-i18n="stories_filter_tribute">Вшанування</span>
+        <span class="stories-filter-count" aria-label="кількість історій">{{ countTribute }}</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="maidan"{% if countMaidan == 0 %} disabled{% endif %}>
+        <span class="stories-filter-label" data-i18n="stories_filter_maidan">Майдан</span>
+        <span class="stories-filter-count" aria-label="кількість історій">{{ countMaidan }}</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="service"{% if countService == 0 %} disabled{% endif %}>
+        <span class="stories-filter-label" data-i18n="stories_filter_service">Служба</span>
+        <span class="stories-filter-count" aria-label="кількість історій">{{ countService }}</span>
+      </button>
+      <button type="button" class="stories-filter" data-filter="events"{% if countEvents == 0 %} disabled{% endif %}>
+        <span class="stories-filter-label" data-i18n="stories_filter_events">Події</span>
+        <span class="stories-filter-count" aria-label="кількість історій">{{ countEvents }}</span>
+      </button>
     </div>
 
     {# ===== СТРІЧКА ПОСТІВ ===== #}
@@ -67,13 +111,15 @@ isStoriesIndex: true
           </p>
           {% endif %}
 
-          {% if post.data.author %}
-          <div class="story-card-author">
-            — <span data-lang-content="uk">{{ post.data.author.uk }}</span><span data-lang-content="en">{{ post.data.author.en }}</span>
-          </div>
-          {% endif %}
+          <div class="story-card-footer">
+            {% if post.data.author %}
+            <div class="story-card-author">
+              <span data-lang-content="uk">{{ post.data.author.uk }}</span><span data-lang-content="en">{{ post.data.author.en }}</span>
+            </div>
+            {% endif %}
 
-          <a href="{{ post.url }}" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+            <a href="{{ post.url }}" class="story-card-more" data-i18n="stories_read_more">Читати →</a>
+          </div>
         </div>
       </article>
       {% endfor %}
@@ -113,7 +159,7 @@ isStoriesIndex: true
   });
 
   const initial = (location.hash || '#all').slice(1);
-  if (['all','childhood','maidan','service','tribute'].includes(initial)) {
+  if (['all','tribute','maidan','service','events'].includes(initial)) {
     applyFilter(initial);
   }
 })();

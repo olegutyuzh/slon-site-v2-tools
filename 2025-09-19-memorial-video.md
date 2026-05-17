@@ -1,7 +1,7 @@
 ---
 slug: concert-zhadana
 date: 2024-02-07
-category: events
+category: tribute
 photo: /img/stories/scene.jpg
 
 title:
@@ -9,8 +9,8 @@ title:
   en: The concert Igor finally made it to
 
 author:
-  uk: Євгенія, наречена
-  en: Yevheniia, the fiancée
+  uk: Розповідає Євгенія, наречена
+  en: Told by Yevheniia, the fiancée
 
 # Окреме оптимізоване зображення для соцмереж (1200×630, з обличчям/текстом по центру)
 # og_image: /img/stories/og/conсert-zhadana-og.png  
